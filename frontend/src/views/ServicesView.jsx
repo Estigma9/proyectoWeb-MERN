@@ -1,10 +1,12 @@
-
+import MiIntro from '../components/MiIntro';
+import TheFooter from '../components/TheFooter';
 
 function ServicesView () {
     return (
-        <div class="about">
+        <div className="about">
             <h1>This is an ServicesView page</h1>
-
+            <MiIntro></MiIntro>
+            <TheFooter></TheFooter>
         </div>
 
     )

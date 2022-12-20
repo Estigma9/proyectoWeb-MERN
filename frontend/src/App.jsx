@@ -1,11 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+import TheNavbar from './components/TheNavbar';
 import HomeView from './views/HomeView';
 import AboutView from './views/AboutView';
 import ServicesView from './views/ServicesView';
 import StoreView from './views/StoreView';
 import LoginView from './views/LoginView';
+import CheckedView from './views/CheckedView';
 
 import './App.css';
 
@@ -14,13 +18,16 @@ function App() {
     <div className="App">
 
       <Router>
-        {/* <Navbar /> */}
+        <TheNavbar/>
         <Routes>
-          <Route exact path="/" component = {HomeView} />
-          <Route path="/about" component = {AboutView} />
-          <Route path="/services" component = {ServicesView} />
-          <Route path="/store" component = {StoreView} />
-          <Route path="/login" component = {LoginView} />
+          <Route exact path="/" element = {<HomeView/>} />
+          <Route path="/about" element = {<AboutView/>} />
+          <Route path="/services" element = {<ServicesView/>} />
+          <Route path="/store" element = {<StoreView/>} />
+          <Route path="/login" element = {<LoginView/>} />
+          <Route path="/checked" element = {<CheckedView/>} />
+          <Route path="*" element = {<Navigate replace to="/"/>} />
+          
         </Routes>
       </Router>
       

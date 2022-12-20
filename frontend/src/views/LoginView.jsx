@@ -1,9 +1,10 @@
-
+import TheLogin from "../components/auth/TheLogin";
 
 function LoginView () {
     return (
-        <div class="about">
+        <div className="about">
             <h1>This is an LoginView page</h1>
+            <TheLogin></TheLogin>
 
         </div>
 

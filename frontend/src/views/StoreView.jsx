@@ -1,11 +1,12 @@
-
-
+import StoreCarousel from '../components/StoreCarousel';
+import TheFooter from '../components/TheFooter';
 
 function StoreView () {
     return (
-        <div class="about">
+        <div className="about">
             <h1>This is an StoreView page</h1>
-
+            <StoreCarousel></StoreCarousel>
+            <TheFooter></TheFooter>
         </div>
 
     )
