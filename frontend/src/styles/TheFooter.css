@@ -38,7 +38,7 @@ footer {
     width: 70%;
   }
   
-  .social-media #b-icon {
+  .social-media i {
     font-size: 20px;
     display: inline-block;
     color: #adb6c7;
@@ -54,7 +54,7 @@ footer {
     margin-right: 5px;
   }
   
-  .social-media #b-icon:hover {
+  .social-media i:hover {
     color: #fff;
     background-color: #1fde82;
     border-color: #1fde82;

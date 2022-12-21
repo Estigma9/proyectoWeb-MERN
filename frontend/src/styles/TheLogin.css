@@ -90,7 +90,7 @@
     display: none;
   }
   
-  h1 {
+  .login-title {
     text-align: center;
     color: var(--blanco);
     font-weight: var(--thin);

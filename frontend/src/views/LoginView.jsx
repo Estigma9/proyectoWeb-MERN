@@ -2,7 +2,7 @@ import TheLogin from "../components/auth/TheLogin";
 
 function LoginView () {
     return (
-        <div className="about">
+        <div>
             <h1>This is an LoginView page</h1>
             <TheLogin></TheLogin>
 

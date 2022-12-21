@@ -4,7 +4,7 @@ import TheFooter from '../components/TheFooter';
 
 function CheckedView () {
     return (
-        <div className="about">
+        <div>
             <h1>This is an Checked page</h1>
             <MiIntro></MiIntro>
             <MyServices></MyServices>

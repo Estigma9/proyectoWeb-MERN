@@ -3,7 +3,7 @@ import TheFooter from '../components/TheFooter';
 
 function AboutView () {
     return (
-        <div className="about">
+        <div>
             <h1>This is an about page</h1>
             <br />
             <TheFooter></TheFooter>
