@@ -1,15 +1,16 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 import swal from 'sweetalert';
 
-import axios from '../../api/axios';
+import baseURL from '../../api/index.js';
 
+//Styles
 import '../../styles/TheLogin.css';
 
 
-const baseURL = 'http://localhost:4000/api/user/login"';
-
-
-
+//const baseUrl = 'http://localhost:4000';
+const baseUrl = baseURL;
 
 
 function TheLogin() {
@@ -19,67 +20,71 @@ function TheLogin() {
         setToggleState(index);
     };
 
-    Component.state = {
-        login: {
-            email: "",
-            password: "",
-          },
-          register: {
-            username: "",
-            userlastname: "",
-            email: "",
-            password: "",
-            passwordcompare: "",
-          },
-    };
+    const [dataUser, setData] = useState({
+        email: "",
+        password: "",
+    })
 
-    const handleChange =  (event) => {
-         this.setState({
-            form:{
-                ...this.state.form,
-                [event.target.name]: event.target.value
-            }
+    const handleChange = (event) => {
+        //console.log(event.target.name);
+        //console.log(event.target.value);
+
+        setData({
+            ...dataUser,
+            [event.target.name]: event.target.value
         });
-        
-    };
+
+        //console.log([dataUser, setData]);
+    }
+
+    const handleSubmit = (ev) => {
+        ev.preventDefault();
+        console.log('Form submitted!!! XD o+<]:');
+    }
+
+    // function handleSubmit2 (ev){
+    //     ev.preventDefault();
+    //     console.log('Form submitted!!! XD o+<]:');
+    // }
+
+    const navigate = useNavigate();
+
 
     const loginUser = async () => {
         try {
-            console.log(this.login)
+            // console.log('Estoy intentando!!!');
+            let response = await axios.post(baseUrl + '/api/user/login', dataUser);
 
-          let response = await axios.post(baseURL, {
-            email: this.login.email, 
-            password: this.login.password
-        });
-          console.log(response.data);
-          let token = response.data.tokenReturn;      
-          let user = response.data.user;
 
-          localStorage.setItem("jwt", token);
-          localStorage.setItem("user", JSON.stringify(user));
+            console.log(response.data);
+            let token = response.data.tokenReturn;
+            let user = response.data.user;
 
-          if (token) {
-            swal("Éxito!!", "Login correcto", "success");
-            //this.$router.push("/checked");
-          }
+            localStorage.setItem("jwt", token);
+            localStorage.setItem("user", JSON.stringify(user));
+
+            if (token) {
+                swal("Éxito!!", "Login correcto", "success");
+                navigate('/checked');
+            }
         } catch (e) {
-          swal("Oops!", "Algo salió mal!", "error");
+            swal("Oops!", "Algo salió mal!", "error");
         }
     };
 
-    const registerUser = async () =>{
+    const registerUser = async () => {
         try {
-          let response = await this.$http.post('/api/user/register', this.register);
+            let response = await axios.post(baseUrl + '/api/user/register', dataUser);
 
-          console.log(response);
-          swal("Éxito!!", "Registro correcto", "success");
-          this.$router.push("/login");
-          
+            console.log(response);
+            swal("Éxito!!", "Registro correcto", "success");
+            navigate('/login');
+
         } catch (e) {
-          swal("Oops!", "Algo salió mal con tu registro!", "error");
+            swal("Oops!", "Algo salió mal con tu registro!", "error");
         }
     };
-    
+
 
 
 
@@ -111,12 +116,12 @@ function TheLogin() {
                 <div className={currentTab === 1 ? "" : "contenido-tab"}>
                     <div id="iniciar-sesion">
                         <h1 className='login-title'>Iniciar Sesión</h1>
-                        <form action="#" method="post">
+                        <form onSubmit={handleSubmit} method="post">
                             <div className="contenedor-input">
                                 <label className="label"> <span className="req"></span> </label>
                                 <input
                                     name="email"
-                                    onChange={()=>handleChange()}
+                                    onChange={handleChange}
                                     type="email"
                                     required
                                     placeholder="Email"
@@ -127,7 +132,7 @@ function TheLogin() {
                                 <label className="label"> <span className="req"></span> </label>
                                 <input
                                     name="password"
-                                    onChange={()=>handleChange()}
+                                    onChange={handleChange}
                                     type="password"
                                     required
                                     placeholder="Password"
@@ -136,7 +141,7 @@ function TheLogin() {
 
                             <p className="forgot"> <a href="#forgot">¿Se te olvidó la contraseña?</a></p>
                             <input
-                                onClick={()=>loginUser()}
+                                onClick={() => loginUser()}
                                 type="submit"
                                 className="button button-block"
                                 value="Iniciar Sesión"
@@ -150,7 +155,7 @@ function TheLogin() {
                 <div className={currentTab === 2 ? "" : "contenido-tab"}>
                     <div id="registrarse">
                         <h1 className='login-title'>Registrarse</h1>
-                        <form action="#" method="post">
+                        <form onSubmit={handleSubmit} method="post">
                             <div className="fila-arriba">
                                 <div className="contenedor-input">
                                     <label> <span className="req"></span> </label>
@@ -209,7 +214,7 @@ function TheLogin() {
                             </div>
 
                             <input
-                                onClick={()=>registerUser()}
+                                onClick={() => registerUser()}
                                 type="submit"
                                 className="button button-block"
                                 value="Registrarse"
@@ -218,12 +223,6 @@ function TheLogin() {
                     </div>
                 </div>
             </div>
-
-
-            <pre>
-                {/* {{login}}
-          {{register}}     */}
-            </pre>
 
         </div>
     );
